@@ -98,8 +98,23 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+	
+			<plugin>
+				<groupId>external.atlassian.jgitflow</groupId>
+				<artifactId>jgitflow-maven-plugin</artifactId>
+				<version>1.0-m5.1</version>
+				<configuration>
+					<flowInitContext>
+						<masterBranchName>master</masterBranchName>
+						<developBranchName>develop</developBranchName>
+						<featureBranchPrefix>feat_</featureBranchPrefix>
+						<releaseBranchPrefix>release_</releaseBranchPrefix>
+						<hotfixBranchPrefix>hotfix_</hotfixBranchPrefix>
+						<versionTagPrefix />
+					</flowInitContext>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-
 
 </project>
