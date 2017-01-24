@@ -1,0 +1,9 @@
+app:
+   name: '@pom.artifactId@'
+   version: '@pom.version@'
+   
+springfox:
+   documentation:
+      swagger:
+         v2:
+            path: /swagger.json
