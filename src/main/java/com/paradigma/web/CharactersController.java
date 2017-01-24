@@ -3,6 +3,8 @@ package com.paradigma.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.paradigma.beans.response.Character;
+import com.paradigma.model.CharacterModel;
+import com.paradigma.services.CharactersService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,6 +34,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CharactersController {
 
+	@Autowired
+	private CharactersService service;
+	
 	
 	/**
 	 * This method retrieves all the available characters stored in the persistence layer
@@ -45,14 +52,22 @@ public class CharactersController {
 	public ResponseEntity<List<Character>> retrieveAvailableCharacters() {
 
 		log.info("GET -> /characters");
+		List<CharacterModel> serviceResult = service.list();
 		
+		List<Character> result = new ArrayList<>();
+		serviceResult.stream().forEach(c -> result.add(transformCharacter(c)));
+		
+		return ResponseEntity.ok(result);
+	}
+
+	//////////////////////////////
+	// Private functions
+	//////////////////////////////
+	
+	private Character transformCharacter(CharacterModel characterModel) {
 		Character character = new Character();
-		character.setId("1");
-		character.setName("name");
-		List<Character> l = new ArrayList<>();
-		l.add(character);
-		
-		return new ResponseEntity<List<Character>>(l, HttpStatus.OK);
+		BeanUtils.copyProperties(characterModel, character);
+		return character;
 	}
 
 	
