@@ -44,7 +44,7 @@ public class CharactersController {
 	 */
 	@ApiOperation(value = "Retrieves all the available characters")
 	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "The characters has been retrieved successfully", response = String.class),
+			@ApiResponse(code = 200, message = "The characters has been retrieved successfully", response = Character.class, responseContainer="List"),
 			@ApiResponse(code = 424, message = "Failed external dependecy"),
 			@ApiResponse(code = 500, message = "Server error") })
 	@RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
